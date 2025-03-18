@@ -1,0 +1,288 @@
+\chapter{Forma de Controlador}
+\section{Forma de Controlador}
+\defn{Forma de Controlador}{
+	Se dice que un sistema no lineal (con múltiples entradas) está en la \gls{fc} si se puede escribir como
+	\begin{equation}
+		\dot{x} = Ax + B\gamma(x)[u - \alpha(x)] \, ,
+		\label{eq:forma_controlador}
+	\end{equation}
+	donde
+	\begin{itemize}
+		\item $(A, B)$ es controlable, $A \in \mathbb{R}^{n \times n}$, $B \in \mathbb{R}^{n \times p}$.
+		\item $\gamma(x)$, con $\gamma: D \subset \mathbb{R}^n \rightarrow \mathbb{R}^{p\times p}$, es una matriz no singular para cada $x \in D$.
+	\end{itemize}
+}
+
+\rmkb{Note que todas las no linealidades están en el mismo canal que la entrada. La dinámica no lineal del sistema se puede manipular libremente.}
+
+\fact{
+	Un sistema que está en la \gls{fc} se puede linealizar exactamente mediante retroalimentación de los estados:\\
+
+	Si se elige
+	\begin{equation*}
+		u = \alpha(x) + \gamma^{-1}(x) v \, ,
+	\end{equation*}
+	donde
+	\begin{itemize}
+		\item $\gamma^{-1}(x)$ es la inversa de $\gamma(x)$, y
+		\item $v$ es la entrada de control,
+	\end{itemize}
+	entonces la dinámica del sistema en lazo cerrado es
+
+	\begin{equation*}
+		\dot{x} = Ax + Bv \, ,
+	\end{equation*}
+	que es lineal en los estados y en la entrada $v$.
+}
+\defn{Linealizable por Retroalimentación}{
+	Se dice que un sistema no lineal
+	\begin{equation*}
+		\dot{x} = f(x) + G(x)u \, ,
+	\end{equation*}
+	donde $f: D \rightarrow \mathbb{R}^n$ y $G: D \rightarrow \mathbb{R}^{n \times p}$ son suficientemente suaves en un dominio $D \subseteq \mathbb{R}^n$, es \textbf{Linealizable por Retroalimentación} (o Linealizable Entrada-Estados) si existe un difeomorfismo $T : D \rightarrow \mathbb{R}^n$ tal que
+	\begin{itemize}
+		\item $D_z = T(D)$ contiene el origen, y
+		\item el cambio de variable $z=T(x)$ lleva al sistema a la \gls{fc}.
+	\end{itemize}
+}
+
+\propp{
+	El sistema de dimensión $n$ y con una entrada ($p=1$)
+	\begin{equation*}
+		\dot{x} = f(x) + g(x)u
+	\end{equation*}
+	puede ser transformado a la \gls{fc} mediante una transformación de estados $z=T(x)$ si y solo si existe una función (de salida) $h(x)$ tal que el sistema \gls{siso}
+	\begin{equation*}
+		\begin{aligned}
+			\dot{x} & = f(x) + g(x)u \\
+			y       & = h(x)
+		\end{aligned}
+	\end{equation*}
+	tenga grado relativo completo, i.e., $\rho = n$.
+}{
+	$\Leftarrow$: Si el sistema tiene grado relativo $\rho = n$, entonces se puede llevar a la \gls{fn}, que en este caso se reduce a la \gls{fc}, pues no hay porción $\eta$
+	\begin{equation*}
+		\begin{aligned}
+			\dot{\xi} & = A_c \xi + B_c \gamma(x)[u - \alpha(\xi)] \\
+			y         & = C_c \xi
+		\end{aligned}
+	\end{equation*}
+	\\
+	$\Rightarrow$: Si el sistema se puede transformar a la \gls{fc} mediante una transformación $z=S(x)$, entonces
+	\begin{equation*}
+		\dot{z} = Az + B \bar{\gamma}(z)[u - \bar{\alpha}(z)].
+	\end{equation*}
+	Como $(A,B)$ es controlable, entonces existe una matriz regular $M \in \mathbb{R}^{n \times n}$ tal que
+	\begin{equation*}
+		\begin{aligned}
+			MAM^{-1} & = A_c + B_c \lambda^T \\
+			MB       & = B_c
+		\end{aligned} \, ,
+	\end{equation*}
+	donde
+	\begin{equation*}
+		A_c = \begin{bmatrix}
+			0      & 1      & 0      & \ldots & 0      \\
+			0      & 0      & 1      & \ldots & 0      \\
+			\vdots & \vdots & \vdots & \ddots & \vdots \\
+			0      & 0      & 0      & \ldots & 1      \\
+			0      & 0      & 0      & \ldots & 0
+		\end{bmatrix} \; , \quad B_c = \begin{bmatrix}
+			0      \\
+			0      \\
+			\vdots \\
+			0      \\
+			1
+		\end{bmatrix} \; .
+	\end{equation*}
+	Por lo tanto, la transformación
+	\begin{equation*}
+		\xi = Mz = MS(x) \overset{\Delta}{=} T(x)
+	\end{equation*}
+	transforma al sistema a la forma
+	\begin{equation*}
+		\dot{\xi} = A_c \xi + B_c \gamma(x)[u - \alpha(x)] \, ,
+	\end{equation*}
+	donde
+	\begin{equation*}
+		\gamma(x) = \bar{\gamma}(x) \, , \quad \alpha(x) = \bar{\alpha}(x) - \lambda^T M \dfrac{S(x)}{\gamma(x)} \, .
+	\end{equation*}
+	Eligiendo
+	\begin{equation*}
+		y = C_c \xi = \xi_1 = T_1(x) = h(x)
+	\end{equation*}
+	el sistema tiene \gls{gr} $\rho = n$.
+}
+
+\section{Condiciones de existencia de $h(x)$}
+Ahora nos concentraremos en el problema de hallar una salida con \gls{gr} $\rho = n$.\\
+
+Trataremos de encontrar una caracterización a partir de la cual, con solo mirar la $f(x)$ y $g(x)$, y haciendo ciertas operaciones, decidir si existe un difeomorfismo que lleve a la \gls{fc}.\\
+
+¿Cómo decidir si existe una función suave $h(x)$ tal que
+\begin{equation}
+	\begin{aligned}
+		L_g L_f^{i-1} h(x) & = 0, \quad i = 1, 2, \ldots, n-1; \quad \forall x \in D_0 \\
+		L_g L_f^{n-1} h(x) & \neq 0
+	\end{aligned}
+	\label{eq:edp_h}
+\end{equation}
+y
+\begin{equation*}
+	T(x) = \begin{bmatrix}
+		h(x)     \\
+		L_f h(x) \\
+		\vdots   \\
+		L_f^{n-1} h(x)
+	\end{bmatrix}
+\end{equation*}
+sea un difeomorfismo?\\
+
+Note que esto termina siendo un problema de resolver una \gls{edp}, que en general es muy complicado. Podemos conformarnos inicialmente en saber si \textbf{existe} una función $h(x)$ que cumpla con las condiciones.\\
+
+Para este fin, es necesario introducir herramientas adicionales.\\
+
+\subsection{El paréntesis de Lie}
+\defn{Paréntesis de Lie}{
+	El \textbf{paréntesis de Lie} de dos campos vectoriales $f$ y $g$ es un tercer campo vectorial definido como
+	\begin{equation}
+		[f, g] = \dfrac{\partial g(x)}{\partial x} f(x) - \dfrac{\partial f(x)}{\partial x} g(x) \, .
+		\label{eq:lie_bracket}
+	\end{equation}
+}
+Para simplificar la notación, se puede escribir
+\begin{equation}
+	\begin{aligned}
+		 & ad_f^0 g(x) = g(x)                      \\
+		 & ad_f g(x) = [f, g](x)                   \\
+		 & ad_f^k g(x) = [f, ad_f^{k-1} g](x) \, .
+	\end{aligned}
+	\label{eq:lie_bracket_simplified}
+\end{equation}
+Además, algunas propiedades del paréntesis de Lie son
+\begin{itemize}
+	\item $ [f, g] = -[g, f] $
+	\item  Para campos vectoriales constantes $ f, g, \; [f, g] = 0$
+\end{itemize}
+
+\subsection{Distribuciones}
+Partiendo de la idea de un campo escalar, el cual es una función que asigna un número a cada punto del espacio, podemos decir, de manera informal, que una distribución es un campo en el que a cada punto del espacio se asigna un subespacio. Usualmente, lo hacemos asignando a cada punto un conjunto de vectores que generan el subespacio.
+
+\defn{Distribución}{
+	Para los campos vectoriales $f_1, f_2, \ldots, f_k$ en $D \subset \mathbb{R}^n$, sea
+	\begin{equation*}
+		\Delta(x) = \text{span}\{f_1(x), f_2(x), \ldots, f_k(x)\}
+	\end{equation*}
+	el espacio vectorial generado por los vectores $f_1(x), f_2(x), \ldots, f_k(x)$.
+	La colección de espacios vectoriales $\Delta(x)$ para todo $x \in D$ se llama una \textbf{Distribución} y nos referimos a ella como
+	\begin{equation*}
+		\Delta = \text{span}\{f_1, f_2, \ldots, f_k\} \, .
+	\end{equation*}
+	\begin{itemize}
+		\item Si la $\text{dim}(\Delta(x)) = k$ para todo $x \in D$, se dice que $\Delta$ es una \textbf{Distribución no singular} (o regular) en $D$, generada por los campos vectoriales $f_1, f_2, \ldots, f_k$.
+		\item La distribución es \textbf{Involutiva} si
+		      \begin{equation*}
+			      g_1 \in \Delta \; \text{y} \; g_2 \in \Delta \quad \Rightarrow \quad [g_1, g_2] \in \Delta
+		      \end{equation*}
+	\end{itemize}
+}
+
+\lem{}{
+	Si $\Delta$ es una distribución regular en $D$, generada por $f_1, f_2, \ldots, f_k$, entonces es involutiva si y solo si
+	\begin{equation}
+		[f_i, f_j] \in \Delta, \quad \forall 1 \leq i, j \leq k \, .
+		\label{eq:involutiva}
+	\end{equation}
+}
+
+\thm{Teorema de Linealización}{
+	\label{thm:linealizacion}
+	El sistema de dimensión $n$ con una sola entrada \gls{si}
+	\begin{equation}
+		\dot{x} = f(x) + g(x)u
+		\label{eq:si}
+	\end{equation}
+	es transformable a la \gls{fc} si y solo si existe un dominio $D_0$ tal que
+	\begin{enumerate}
+		\item $\text{rank} [g(x), ad_f g(x), \ldots, ad_f^{n-1} g(x)] = n, \quad \forall x \in D_0$, y
+		\item $\text{span} \{g(x), ad_f g(x), \ldots, ad_f^{n-2} g(x)\}$ es involutiva en $D_0$.
+	\end{enumerate}
+}
+
+\ex{
+\[
+	\dot{x} = \begin{bmatrix}
+		a \sin x_2 \\
+		-x_1 ^2
+	\end{bmatrix} + \begin{bmatrix}
+		0 \\
+		1
+	\end{bmatrix} u
+\]
+\[
+	\text{ad}_f g(x) = [f,g] = - \dfrac{\partial f}{\partial x}g = \begin{bmatrix}
+		-a \cos x_1 \\
+		0
+	\end{bmatrix}
+\]
+Note que el procedimiento para encontrar difeomorfismo de estados que transforme al istema a su \gls{fc} consiste en los siguientes pasos:
+\begin{enumerate}
+	\item A partir de $f$ y $g$, construir los campos vectoriales
+	      \[
+		      \text{ad}_f g(x), \; \ldots \; , \text{ad}_f^{n-2} g(x), \; \text{ad}_f^{n-1} g(x)
+	      \]
+	      y verificar las condiciones (i) y (ii) del Teorema de Linealización (\ref{thm:linealizacion}).
+	\item Si ambas condiciones son satisfechas, halle $h(x)$ resolviendo el sistema de \gls{edp} (\ref{eq:edp_h}).
+	\item Defina
+	\[ \alpha(x) = -\dfrac{L_f^n h(x)}{L_g L_f^{n-1} h(x)} \; , \quad \gamma(x) = L_g L_f h(x) \]
+	\item Halle la transformación
+	\[ T(x) = \begin{bmatrix}
+		h(x)     \\
+		L_f h(x) \\
+		\vdots   \\
+		L_f^{n-1} h(x)
+	\end{bmatrix} \]
+\end{enumerate}
+}
+\section{Tres consecuencias del Teorema de Linealización}
+Tres consecuencias importantes del teorema anterior serán presentadas \cite{marino1995}\cite{isidori1995}.
+\cor{
+    Un sistema no lineal en el plano ($n=2$) con una sola entrada
+    \begin{equation*}
+        \dot{x} = f(x) + g(x)u
+    \end{equation*}
+    es Linealizable por Retroalimentación (es localmente transformable a la \gls{fc}) en una vecindad del origen si y solo si su aproximación lineal (linealización) en el origen
+    \begin{equation*}
+        \dot{x} = \dfrac{\partial f(0)}{\partial x}x + g(0)u \overset{\Delta}{=} Ax + Bu
+    \end{equation*}
+    es controlable.
+}
+
+\cor{
+    La controlabilidad de la linealización para sistemas de orden $n \geq 2$ es una condición necesaria, más no suficiente de Linealizabilidad por Retroalimentación.
+
+    Si el sistema no lineal con una sola entrada
+    \begin{equation*}
+        \dot{x} = f(x) + g(x)u
+    \end{equation*}
+    es Linealizable localmente por Retroalimentación (es localmente transformable a la \gls{fc}) en una vecindad del origen, entonces su linealización en el origen
+    \begin{equation*}
+        \dot{x} = \dfrac{\partial f(0)}{\partial x}x + g(0)u \overset{\Delta}{=} Ax + Bu
+    \end{equation*}
+    es controlable, es decir,
+    \begin{equation*}
+        \text{rank}[b, Ab, \ldots, A^{n-1}b] = n \, .
+    \end{equation*}
+}
+
+\cor{
+    El sistema en Forma Triangular 
+    \begin{equation*}
+        \begin{aligned}
+        \dot{x}_i &= \phi_i(x_1, \ldots, x_i) + x_{i+1}u, \quad i = 1, 2, \ldots, n-1 \\
+        \dot{x}_n &= \phi_n(x_1, \ldots, x_n) + u,
+        \end{aligned}
+    \end{equation*}
+    en el cual, $\phi_1, \ldots, \phi_n$ son funciones suficientemente suaves, tales que $\phi_i(0) = 0, 1\leq i\leq n$ es Linealizable por Retroalimentación.
+}
+

@@ -1,0 +1,181 @@
+\documentclass[twoside,12pt]{book}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[backend=bibtex, style=numeric, sorting=none]{biblatex}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{environ}
+\usepackage{tcolorbox}
+
+\tcbuselibrary{theorems,skins,breakable}
+\addbibresource{bibliography.bib}
+
+\setstretch{1.0}
+\geometry{
+    textheight=8.3in,
+    textwidth=5.8in,
+    top=0.8in,
+    inner=1.2in,
+    outer=0.8in,
+    bottom=0.8in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+\setlength{\parindent}{0pt}
+
+
+% Variables
+\def\notetitle{Notas: Diseño de Controladores No Lineales}
+\def\noteauthor{
+    \textbf{Profesor} \\ 
+    Dr. Jaime Moreno \\
+    \textbf{Autor} \\
+    A. León\\
+    \\
+    Posgrado de Ingeniería, UNAM}
+\def\notedate{2025}
+
+% The theorem system and user-defined commands
+\input{theorems.tex}
+\input{commands.tex}
+\input{acronyms.tex}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+\title{\textbf{
+		\LARGE{\notetitle} \vspace*{10\baselineskip}}
+}
+\author{\noteauthor}
+\date{\notedate}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\printglossary[type=\acronymtype, title=Lista de Acrónimos]
+\newpage
+
+% ------------------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Capítulo 1: Grado Relativo, Forma Normal y Dinámica Cero
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/ch1.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Capítulo 2: Forma de Controlador
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/ch2.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Capítulo 3: Algunas Herramientas Geométricas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/ch3.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Capítulo 4: Estabilización
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/ch4.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Capítulo 5: Linealización Parcial
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/ch5.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Capítulo 6: Funciones de Lyapunov de Control
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/ch6.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Capítulo 7: Backstepping
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/ch7.tex}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\defn{Relative Degree}{
+
+}
+
+
+\defn{Definition Name}{
+	A defintion.
+}
+
+\thmr{Theorem Name}{mybigthm}{
+	A theorem.
+}
+
+\lem{Lemma Name}{
+	A lemma.
+}
+
+\fact{
+	A fact.
+}
+
+\cor{
+	A corollary.
+}
+
+\prop{
+	A proposition.
+}
+
+\clmp{}{
+	A claim.
+}{
+	A reference to Theorem~\ref{thm:mybigthm}
+}
+
+\pf{
+	Veniam velit incididunt deserunt est proident consectetur non velit ipsum voluptate nulla quis. Ea ullamco consequat non ad amet cupidatat cupidatat aliquip tempor sint ea nisi elit dolore dolore.
+
+	Laboris labore magna dolore eiusmod ea ex et eiusmod laboris. Et aliquip cupidatat reprehenderit id officia pariatur.
+}
+
+\ex{
+	Nostrud esse occaecat Lorem dolore laborum exercitation adipisicing eu sint sunt et. Excepteur voluptate consectetur qui ex amet esse sunt ut nostrud qui proident non. Ipsum nostrud ut elit dolor. Incididunt voluptate esse et est labore cillum proident duis.
+}
+
+\rmk{
+	Some remark.
+}
+
+\rmkb{
+	Some more remark.
+}
+
+\section{Pictures}
+
+% \begin{figure}[H]
+%     \center
+%     \includegraphics[scale=0.1]{img/loo.jpg}
+%     \caption{Waterloo, ON}
+% \end{figure}
+
+\printbibliography[title=Referencias]
+\end{document}

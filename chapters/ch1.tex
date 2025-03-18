@@ -1,0 +1,473 @@
+\chapter{Grado relativo, Forma Normal y Dinámica Cero}
+
+\section{Grado Relativo}
+
+El \gls{gr} de un sistema tiene que ver con el hecho de que si nosotros derivamos la salida iterativamente, eventualmente en alguna de esas derivadas vamos a encontrar la acción de la entrada. La derivada más pequeña para la cual eso ocurre es el \gls{gr}.\\
+
+De manera más formal, considere el siguiente sistema no lineal \gls{siso} afín en la entrada:
+
+\begin{equation}
+	\begin{aligned}
+		\dot{x} & = f(x) + g(x)u \\
+		y       & = h(x) \, ,
+	\end{aligned}
+	\label{eq:siso_afin}
+\end{equation}
+
+donde
+\begin{itemize}
+	\item $f, g$ y $h$ son funciones suaves en un dominio $D \subseteq \mathbb{R}^n$.
+	\item $f: D \rightarrow \mathbb{R}^n$ y $g: D \rightarrow \mathbb{R}^{n}$ son campos vectoriales en $D$.
+\end{itemize}
+
+Tomamos la derivada de la salida, haciendo uso de la regla de la cadena:
+
+\begin{equation*}
+	\begin{aligned}
+		\dot{y} & = \dfrac{\partial h(x)}{\partial x} \dot{x}                                        \\
+		        & = \dfrac{\partial h(x)}{\partial x} f(x) + \dfrac{\partial h(x)}{\partial x} g(x)u \\
+		        & \overset{\Delta}{=} L_fh(x) + L_gh(x)u \, ,
+	\end{aligned}
+\end{equation*}
+
+donde
+\begin{equation*}
+	L_fh(x) = \dfrac{\partial h(x)}{\partial x} f(x)
+\end{equation*}
+es la \textit{Derivada de Lie} de $h$ con respecto a $f$ o a lo largo de $f$.\\
+
+Entonces, para el sistema \ref{eq:siso_afin}, si tomamos la primera derivada de la salida:
+\begin{equation*}
+	\dot{y} = L_fh(x) + L_gh(x)u \, ,
+\end{equation*}
+si
+\begin{equation*}
+	L_gh(x) = 0 \quad \Rightarrow \quad \dot{y} = L_fh(x) \, ,
+\end{equation*}
+y notamos que la primera derivada de la salida no depende de la entrada $u$. Tomando una derivada más:
+\begin{equation*}
+	y^{(2)} = \ddot{y} = L_f^2h(x) + L_g L_fh(x)u \, ,
+\end{equation*}
+si
+\begin{equation*}
+	L_g L_fh(x) = 0 \quad \Rightarrow \quad y^{(2)}  = L_f^2h(x) \, ,
+\end{equation*}
+nuevamente la segunda derivada de la salida no depende de la entrada $u$. Derivamos una vez más:
+\begin{equation*}
+	y^{(3)} = \dddot{y} = L_f^3h(x) + L_g L_f^2h(x)u \, ,
+\end{equation*}
+si
+\begin{equation*}
+	L_g L_f^2h(x) = 0 \quad \Rightarrow \quad y^{(3)} = L_f^3h(x) \, .
+\end{equation*}
+Generalizando, si
+\begin{equation*}
+	\begin{aligned}
+		L_g L_f^{i-1} h(x)    & = 0, \quad i = 1, 2, \ldots, \rho-1; \\
+		L_g L_f^{\rho-1} h(x) & \neq 0 \, ,
+	\end{aligned}
+\end{equation*}
+entonces
+\begin{equation*}
+	\begin{aligned}
+		y^{(i)} = L_f^i h(x), \quad i = 1, 2, \ldots, \rho-1; \\
+		y^{(\rho)} = L_f^\rho h(x) + L_g L_f^{\rho-1} h(x)u \, .
+	\end{aligned}
+\end{equation*}
+
+\defn{Grado Relativo}{
+	El sistema \gls{siso} afín en la entrada \ref{eq:siso_afin} tiene \gls{gr} $\rho$, con $1 \leq \rho \leq n$, en $D_0 \subset D \subseteq \mathbb{R}^n$ si $ \forall x \in D_0$ se cumple que
+
+	\begin{equation}
+		\begin{aligned}
+			L_g L_f^{i-1} h(x)    & = 0, \quad i = 1, 2, \ldots, \rho-1; \\
+			L_g L_f^{\rho-1} h(x) & \neq 0 \, .
+		\end{aligned}
+		\label{eq:gr}
+	\end{equation}
+}
+
+\ex{
+	\[
+		\begin{aligned}
+			 & \dot{x}_1 = x_2                                                   \\
+			 & \dot{x}_2 = -x_1 + \epsilon(1 - x_1^2)x_2 + u, \quad \epsilon > 0 \\
+			 & y = x_1
+		\end{aligned}
+	\] \\
+	\[
+		\dot{y} = \dot{x}_1 = x_2
+	\] \\
+	\[
+		\ddot{y} = \dot{x}_2 = -x_1 + \epsilon(1 - x_1^2)x_2 + u
+	\] \\
+	El \gls{gr} $= 2$ sobre $D = \mathbb{R}^2$.
+}
+\newpage
+
+\ex{
+	\[
+		\begin{aligned}
+			 & \dot{x}_1 = x_2                                                   \\
+			 & \dot{x}_2 = -x_1 + \epsilon(1 - x_1^2)x_2 + u, \quad \epsilon > 0 \\
+			 & y = x_2
+		\end{aligned}
+	\] \\
+	\[
+		\dot{y} = \dot{x}_2 = -x_1 + \epsilon(1 - x_1^2)x_2 + u
+	\] \\
+	El \gls{gr} $= 1$ sobre $D = \mathbb{R}^2$.
+}
+
+\ex{
+	\[
+		\begin{aligned}
+			 & \dot{x}_1 = x_2                                                   \\
+			 & \dot{x}_2 = -x_1 + \epsilon(1 - x_1^2)x_2 + u, \quad \epsilon > 0 \\
+			 & y = x_1 + x_2^2
+		\end{aligned}
+	\] \\
+	\[ \begin{aligned}
+			\dot{y} & = \dot{x}_1 + 2x_2\dot{x}_2                          \\
+			        & = x_2 -2x_1x_2 + 2 \epsilon (1 - x_1^2)x_2^2 + 2x_2u
+		\end{aligned} \] \\
+	El \gls{gr} $= 1$ sobre $D_0 = \{  x\in\ \mathbb{R}^2 \, | \, x_2 \neq 0 \}$.
+}
+
+\ex{
+	\textbf{Motor de corriente directa controlado por campo}
+	\[
+		\begin{aligned}
+			 & \dot{x}_1 = -ax_1 + u           \\
+			 & \dot{x}_2 = -bx_2 + k - cx_1x_3 \\
+			 & \dot{x}_3 = \theta x_1 x_2      \\
+			 & y = x_3
+		\end{aligned}
+	\] \\
+	con $a, b, c, k, \theta > 0$.\\
+	\[
+		\begin{aligned}
+			\dot{y} & = \dot{x}_3 = \theta x_1 x_2
+		\end{aligned}
+	\] \\
+	\[
+		\begin{aligned}
+			\ddot{y} & = \theta \dot{x}_1 x_2 + \theta x_1 \dot{x}_2                                       \\
+			         & = \left[ -a\theta x_1 x_2 + \theta x_1 (-bx_2 + k - cx_1x_3) \right] + \theta x_2 u
+		\end{aligned}
+	\] \\
+	El \gls{gr} $= 2$ sobre $D_0 = \{ x \in \mathbb{R}^2 \, | \, x_2 \neq 0 \}$.
+}
+
+\section{Forma Normal}
+
+Si un sistema tiene \gls{gr} bien definido, siempre se puede llevar a una forma especial, esta es la \gls{fn}\\
+
+Para el sistema \gls{siso}
+\begin{equation}
+	\begin{aligned}
+		\dot{x} & = f(x) + g(x)u \\
+		y       & = h(x) \, ,
+	\end{aligned}
+	\label{eq:siso}
+\end{equation}
+con \gls{gr} $\rho$, $1 \leq \rho \leq n$, en $D_0 \subset D \subseteq \mathbb{R}^n$ \textit{bien definido}, esto es,
+\begin{equation}
+	\begin{aligned}
+		L_g L_f^{i-1} h(x)    & = 0, \quad i = 1, 2, \ldots, \rho-1; \quad \forall x \in D_0 \\
+		L_g L_f^{\rho-1} h(x) & \neq 0 ; \quad \forall x \in D_0 \, ,
+	\end{aligned}
+	\label{eq:gr2}
+\end{equation}
+se puede encontrar un difeomorfismo (función invertible, suave y con inversa suave) construido de la siguiente manera:
+\begin{equation}
+	z = T(x) = \begin{bmatrix}
+		\phi_1(x)         \\
+		\vdots            \\
+		\phi_{n-\rho}(x)  \\
+		- - -             \\
+		h(x)              \\
+		\vdots            \\
+		L_f^{\rho-1} h(x) \\
+	\end{bmatrix} \overset{\Delta}{=} \begin{bmatrix}
+		\phi(x) \\
+		- - -   \\
+		\psi(x)
+	\end{bmatrix} \overset{\Delta}{=} \begin{bmatrix}
+		\eta  \\
+		- - - \\
+		\xi
+	\end{bmatrix} \, .
+	\label{eq:difeomorfismo}
+\end{equation}
+
+Observamos que $z$ es un vector compuesto por $n$ funciones escalares. De estas, las últimas $\rho$ están determinadas de manera única por la salida $y$ y sus derivadas de Lie a lo largo de $f$ hasta el orden $\rho-1$. En cambio, las $n-\rho$ funciones restantes, denotadas como $ \phi_1(x), \ldots , \phi_{n-\rho}(x) $, se eligen de manera que $T(x)$ sea un difeomorfismo en un dominio $\bar{D_0} \subset D_0 \subset D$.  \\
+
+Para garantizar que $T(x)$ sea un difeomorfismo, las funciones $\phi$ deben ser \textit{linealmente independientes}, es decir, sus gradientes deben ser linealmente independientes. Esto se debe a que una función es localmente invertible si su \textit{jacobiano} es una matriz regular, lo que sigue del \textit{teorema de la función inversa}.\\
+
+Finalmente, notamos que el vector $z$ lo descomponemos en una componente $\eta$ y otra $\xi$. Entonces, la dinámica del sistema en las nuevas coordenadas es:
+\begin{equation}
+	\begin{aligned}
+		\dot{\eta}     & = \dfrac{\partial \phi(x)}{\partial x} \left[ f(x) + g(x)u \right] = f_0(\eta, \xi) + g_0(\eta, \xi)u \\
+		\dot{\xi}_i    & = \dfrac{\partial L_f^{i-1} h(x)}{\partial x} \left[ f(x) + g(x)u \right]                             \\
+		               & = L_f^i h(x) + L_g L_f^{i-1} h(x)u = \xi_{i+1}, \quad  1 \leq i \leq \rho-1                           \\
+		\dot{\xi}_\rho & = L_f^\rho h(x) + L_g L_f^{\rho-1} h(x)u                                                              \\
+		y              & = \xi_1 \, .
+	\end{aligned}
+	\label{eq:siso_normal}
+\end{equation}
+
+Elíjase $\phi(x)$ tal que $T(x)$ sea un difeomorfismo y
+\begin{equation}
+	\dfrac{\partial \phi_i(x)}{\partial x} g(x) = 0, \quad 1 \leq i \leq n-\rho; \quad \forall x \in \bar{D}_0 \, ,
+\end{equation}
+es decir, buscamos que el gradiente de $\phi(x)$ sea ortogonal a $g(x)$, esto se puede lograr seleccionando adecuadamente las funciones $\phi_i(x)$.\\
+
+\rmk{
+	¿Cuántos vectores linealmente independientes podemos elegir ortogonales a $g(x)$? \\
+
+	Se pueden elegir $n - 1$, pues $g(x)$ es un vector de dimensión $n$, y su espacio ortogonal es un plano de dimensión $n-1$. \\
+
+	¿Y aquí cuántos tenemos que elegir? \\
+
+	Debemos elegir $n - \rho$.\\
+}
+
+\rmkb{Esto siempre es posible, al menos localmente. Es decir, es posible elegir las $\phi_i$ funciones linealmente independientes, y adicionalmente, escogerlas ortogonales a $g(x)$, al menos en un dominio $\bar{D}_0$.}
+
+\thm{}{
+Suponga que el sistema \gls{siso}
+\begin{equation*}
+	\begin{aligned}
+		\dot{x} & = f(x) + g(x)u \\
+		y       & = h(x) \, ,
+	\end{aligned}
+\end{equation*}
+tiene \gls{gr} $\rho$, $1 \leq \rho \leq n$, en $D_0 \subset D \subseteq \mathbb{R}^n$.
+\begin{itemize}
+	\item Si $\rho = n$, entonces, $\forall \bar{x} \in D_0$, existe una vecindad $\mathcal{N}_{\bar{x}}$ de $\bar{x}$ tal que el mapa $\psi(x)$, restringido a $\mathcal{N}_{\bar{x}}$, es un \textbf{difeomorfismo} en $\mathcal{N}_{\bar{x}}$.
+	\item Si $\rho < n$, entonces, $\forall \bar{x} \in D_0$, existen
+	      \begin{itemize}
+		      \item una \textbf{vecindad} $\mathcal{N}_{\bar{x}}$ de $\bar{x}$, y
+		      \item funciones suaves $\phi_1(x), \ldots, \phi_{n-\rho}(x)$,
+	      \end{itemize}
+\end{itemize}
+tales que
+\begin{equation*}
+	\dfrac{\partial \phi_i(x)}{\partial x} g(x) = 0, \quad 1 \leq i \leq n-\rho; \quad \forall x \in \mathcal{N}_{\bar{x}} \, ,
+\end{equation*}
+y el mapa
+\begin{equation*}
+	z = T(x) = \begin{bmatrix}
+		\phi(x) \\
+		- - -   \\
+		\psi(x)
+	\end{bmatrix} \; ,
+\end{equation*}
+restringido a $\mathcal{N}_{\bar{x}}$, es un \textbf{difeomorfismo} en $\mathcal{N}_{\bar{x}}$.\\
+
+En tal caso, el sistema en las nuevas coordenadas queda en la \gls{fn}:
+\begin{equation}
+	\text{Forma Normal:}
+	\begin{cases}
+		\dot{\eta} = f_0(\eta, \xi)                            \\
+		\dot{\xi_i} = \xi_{i+1}, \quad 1 \leq i \leq \rho-1    \\
+		\dot{\xi_\rho} = L_f^\rho h(x) + L_g L_f^{\rho-1}h(x)u \\
+		y = \xi_1
+	\end{cases} \; ,
+	\label{eq:forma_normal}
+\end{equation}
+o en forma más compacta
+\begin{equation}
+	\text{Forma Normal:}
+	\begin{cases}
+		\dot{\eta} = f_0(\eta, \xi)                        \\
+		\dot{\xi} = A_c \xi + B_c \gamma(x)[u - \alpha(x)] \\
+		y = C_c \xi
+	\end{cases} \; ,
+	\label{eq:forma_normal_compacta}
+\end{equation}
+donde,
+\begin{equation*}
+	A_c = \begin{bmatrix}
+		0      & 1      & 0      & \ldots & 0      \\
+		0      & 0      & 1      & \ldots & 0      \\
+		\vdots & \vdots & \vdots & \ddots & \vdots \\
+		0      & 0      & 0      & \ldots & 1      \\
+		0      & 0      & 0      & \ldots & 0
+	\end{bmatrix} \; , \quad B_c = \begin{bmatrix}
+		0      \\
+		0      \\
+		\vdots \\
+		0      \\
+		1
+	\end{bmatrix} \; , \quad C_c = \begin{bmatrix}
+		1 & 0 & 0 & \ldots & 0
+	\end{bmatrix} \; ,
+\end{equation*}
+\begin{equation*}
+	\gamma(x) = L_g L_f^{\rho-1} h(x) \; , \quad \alpha(x) = -\dfrac{L_f^\rho h(x)}{L_g L_f^{\rho-1} h(x)} \; .
+\end{equation*}
+}
+
+\section{Dinámica Cero}
+
+El concepto de \gls{dc} es independiente del sistema de coordenadas, pero su estudio se simplifica considerablemente en la \gls{fn}.\\
+
+Cuando hablamos de la \gls{dc} de un sistema, nos referimos a la evolución del sistema cuando la salida se mantiene en cero. Es natural pensar que esto se logra anulando la entrada, pero esto no siempre es cierto ni es la única forma de conseguirlo; de hecho, existen infinitas maneras de forzar la salida a cero. Así, la \gls{dc} describe todas las posibles trayectorias del sistema, junto con sus respectivas entradas, que garantizan que la salida permanezca nula de manera unívoca.\\
+
+Considere el sistema \gls{siso} en la \gls{fn}:
+\begin{equation*}
+	\begin{cases}
+		\dot{\eta} = f_0(\eta, \xi)                        \\
+		\dot{\xi} = A_c \xi + B_c \gamma(x)[u - \alpha(x)] \\
+		y = C_c \xi
+	\end{cases} \; .
+\end{equation*}
+Si la salida es \textbf{cero} durante un intervalo de tiempo $t \in (0, T)$, entonces durante este intervalo
+\begin{equation*}
+	\begin{aligned}
+		y(t) \equiv 0 \quad & \Rightarrow \quad y^{(i)}(t) = 0, \quad i = 1, 2, \; \ldots \quad \Rightarrow \quad \xi(t) \equiv 0 \\
+		                    & \Rightarrow \quad u(t) \equiv \alpha(x(t)) \quad \Rightarrow \quad \dot{\eta} = f_0(\eta, 0) \, .
+	\end{aligned}
+\end{equation*}
+Note que en la \gls{fn}, las derivadas de la salida son variables de estado (las variables $\xi$), por lo que la solo nos queda determinar la dinámica de $\dot{\eta}$.\\
+
+\defn{Dinámica Cero}{
+	La ecuación
+	\begin{equation}
+		\dot{\eta} = f_0(\eta, 0)
+		\label{eq:dc}
+	\end{equation}
+	se denomina la \textbf{Dinámica Cero} del sistema.\\
+
+	Adicionalmente, se dice que el sistema es de \textbf{Fase Mínima} si la dinámica cero tiene un punto de equilibrio asintóticamente estable en el dominio de interés (en el origen si $T(0)=0$).
+}
+
+\rmkb{
+	La \gls{dc} corresponde a todas las parejas de condiciones iniciales y entradas al sistema que hacen que la salida sea cero. En la \gls{fn} esto es especialmente simple:
+	\begin{equation*}
+		\begin{aligned}
+			\text{Si } \quad (\eta_0, \xi_0) & = (\eta_0, 0) \; \text{ y } \; u(t) \equiv \alpha(x(t)), \quad \text{donde} \\
+			                                 & x(t) = T^{-1} \left( \begin{bmatrix}
+					                                                        \eta_0 \\
+					                                                        0
+				                                                        \end{bmatrix} \right) y                                \\
+			                                 & \dot{\eta}(t) = f_0(\eta(t), 0), \; \eta(0) = \eta_0                        \\
+			\text{Entonces}                  & \quad \Rightarrow y(t) \equiv 0 \, .
+		\end{aligned}
+	\end{equation*}
+}
+\rmkb{
+	En las coordenadas originales la \gls{dc} puede caracterizarse de la siguiente manera:
+	\begin{equation*}
+		Z^* = \left\{ x \in \bar{D}_0 \, | \, h(x) = L_f h(x) = \ldots = L_f^{\rho-1} h(x) = 0 \right\} \, ,
+	\end{equation*}
+	Entonces
+	\begin{equation*}
+		\begin{aligned}
+			y(t)  \equiv 0 \quad & \Rightarrow \quad x(t) \in Z^*                                                  \\
+			                     & \Rightarrow \quad u(t) = u^*(x) \overset{\Delta}{=} \alpha(x) \, |_{x\in Z^*} \
+		\end{aligned}
+	\end{equation*}
+	La dinámica restringida del sistema se describe como
+	\begin{equation*}
+		\dot{x} = f^*(x) \overset{\Delta}{=} \left[ f(x) + g(x)\alpha(x) \right]_{x\in Z^*} \, .
+	\end{equation*}
+}
+\newpage
+\ex{
+	\[
+		\begin{aligned}
+			 & \dot{x}_1 = x_2                                                   \\
+			 & \dot{x}_2 = -x_1 + \epsilon(1 - x_1^2)x_2 + u, \quad \epsilon > 0 \\
+			 & y = x_2
+		\end{aligned}
+	\] \\
+	\[
+		\begin{aligned}
+			\dot{y}       & = \dot{x}_2 = -x_1 + \epsilon(1 - x_1^2)x_2 + u \; \Rightarrow \; \rho = 1                                 \\
+			y(t) \equiv 0 & \quad \Rightarrow \quad x_2(t) \equiv 0 \; \Rightarrow \; \dot{x}_1(t) = 0 \; \Rightarrow \; u(t) = 0 \, .
+		\end{aligned}
+	\]\\
+	El sistema es de Fase No Mínima.
+}
+
+\ex{
+\[
+	\begin{aligned}
+		 & \dot{x}_1 = -x_1 + \dfrac{2 + x_3^2}{1 + x_3^2}u \\
+		 & \dot{x}_2 = x_3                                  \\
+		 & \dot{x}_3 = x_1 x_3 + u                          \\
+		 & y = x_2
+	\end{aligned}
+\] \\
+\[
+	\begin{aligned}
+		\dot{y}  & = \dot{x}_2 = x_3                                    \\
+		\ddot{y} & = \dot{x}_3 = x_1 x_3 + u \; \Rightarrow \; \rho = 2 \\
+	\end{aligned}
+\]\\
+\[
+	\gamma(x) = L_g L_f h(x) = 1 \; , \quad \alpha(x) = -\dfrac{L_f^{\rho} h(x)}{L_g L_f^{\rho-1} h(x)} = -x_1x_3 \;
+\]\\
+\[
+	\begin{aligned}
+		Z^*       & = \left\{ x_2 = x_3 = 0 \right\} \\
+		u         & = u^*(x) = 0                     \\
+		\dot{x}_1 & = -x_1 \; .
+	\end{aligned}
+\]\\
+El sistema es de Fase Mínima.\\
+\\
+\rmk{¿Cuál es la transformación para llevar al sistema a la \gls{fn}?}\\
+\\
+Hay que hallar $\phi(x)$ tal que
+\[
+	\begin{aligned}
+		\phi(0) & = 0, \; \dfrac{\partial \phi(x)}{\partial x} g(x) = 0                                                                                                                              \\
+		        & = \left[ \dfrac{\partial \phi(x)}{\partial x_1} \, , \, \dfrac{\partial \phi(x)}{\partial x_2} \, , \, \dfrac{\partial \phi(x)}{\partial x_3} \right] \begin{bmatrix}
+			                                                                                                                                                                \dfrac{2 + x_3^2}{1 + x_3^2} \\
+			                                                                                                                                                                0                            \\
+			                                                                                                                                                                1
+		                                                                                                                                                                \end{bmatrix} = 0
+	\end{aligned}
+\]
+y
+\[
+	T(x) = \begin{bmatrix}
+		\phi(x) \\
+		h(x)    \\
+		L_f h(x)
+	\end{bmatrix}
+\]
+sea un difeomorfismo.\\
+\[
+	\dfrac{\partial\phi(x)}{\partial x}g(x) = \dfrac{\partial\phi(x)}{\partial x_1} \dfrac{2+x_3^2}{1+x_3^2} + \dfrac{\partial\phi(x)}{\partial x_3} = 0
+\]
+La función
+\[
+	\phi(x) = -x_1 + x_3 + \tan^{-1}(x_3)
+\]
+satisface la \gls{edp} y $\phi(0)=0$.\\
+\[
+	T(x) = \begin{bmatrix}
+		\eta  \\
+		\xi_1 \\
+		\xi_2
+	\end{bmatrix} = \begin{bmatrix}
+		-x_1 + x_3 + \tan^{-1}(x_3) \\
+		x_2                         \\
+		x_1x_3
+	\end{bmatrix}
+\]
+es un difeomorfismo global. La \gls{fn} es entonces
+\[
+	\begin{cases}
+		\dot{\eta} = (-\eta + \xi_2 + \tan^{-1}(\xi_2))\left( 1 + \dfrac{2 + \xi_2^2}{1 + \xi_2^2}\xi_2^2 \right) \\
+		\dot{\xi}_1 = \xi_2                                                                                       \\
+		\dot{\xi}_2 = (-\eta + \xi_2 + \tan^{-1}(\xi_2))\xi_2 + u                                                 \\
+		y = \xi_1
+	\end{cases}
+\]
+}

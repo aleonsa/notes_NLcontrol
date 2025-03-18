@@ -1,0 +1,300 @@
+\chapter{Algunas Herramientas Geométricas}
+\section{Objetos Importantes}
+Sea $U$ un conjunto abierto de $\mathbb{R}^n$. Algunos objetos geométricos importantes san los siguientes:
+\subsection{Funciones (o campos) escalares}
+Una función escalar $h:U \subset \mathbb{R}^n \rightarrow \mathbb{R}$ asigna a cada \textit{punto} en $U$ un escalar (número real), y son \textit{suaves}, es decir, tienen derivadas parciales de cualquier orden, o \textit{analíticas}.
+
+\subsection{Funciones (o mapas) vectoriales}
+Una función vectorial $F: U \subset \mathbb{R}^n \rightarrow \mathbb{R}^m, m >1$, asigna a cada \textit{punto} en $U$ un \textit{punto} en $\mathbb{R}^m$
+\begin{equation*}
+	F(x) = \begin{bmatrix}
+		F_1(x) \\
+		F_2(x) \\
+		\vdots \\
+		F_m(x)
+	\end{bmatrix}
+\end{equation*}
+La utilidad mayor de los mapas vectoriales será como \textit{transformación de coordenadas}. Sea
+\begin{equation*}
+	z = \Phi(x) = \begin{bmatrix}
+		\phi_1(x) \\
+		\phi_2(x) \\
+		\vdots    \\
+		\phi_n(x)
+	\end{bmatrix}, \quad \Phi: \mathbb{R}^n \rightarrow \mathbb{R}^n
+\end{equation*}
+con las siguientes propiedades:
+\begin{enumerate}
+	\item $\Phi$ es invertible, es decir, existe una función $\Phi^{-1}(z)$ tal que
+	      \begin{equation*}
+		      \Phi^{-1}(\Phi(x)) = x, \quad \forall x \in \mathbb{R}^n
+	      \end{equation*}
+	\item Tanto $\Phi$ como $\Phi^{-1}$ son mapeos suaves, esto es, que tienen derivadas parciales de cualquier orden.
+\end{enumerate}
+Un mapeo de este tipo se denomina \textit{Difeomorfismo Global} en $\mathbb{R}^n$. Si las propiedades solo se satisfacen en una vecindad de un punto, entonces el mapeo se denomina un \textit{Difeomorfismo Local}.
+
+\subsection{Campos Vectoriales}
+Un campo vectorial $f: U \subset \mathbb{R}^n \rightarrow \mathbb{R}^n$ asigna a cada \textit{punto} en $U$ un \textit{vector} en $\mathbb{R}^n$. Es útil identificar a los campos vectoriales con vectores columna ($n\times 1$)
+\begin{equation*}
+	f(x_1, \ldots, x_n) = f(x) = \begin{bmatrix}
+		f_1(x) \\
+		f_2(x) \\
+		\vdots \\
+		f_n(x)
+	\end{bmatrix}
+\end{equation*}
+donde cada una de las componentes $f_i(x)$ es una función escalar. El campo vectorial es suave si cada una de las funciones componentes lo es.
+
+\subsection{Campos Covectoriales}
+Un campo covectorial $\omega: U \subset \mathbb{R}^n \rightarrow \mathbb{R}^n$ asigna a cada \textit{punto} en $U$ un \textit{covector} en $(\mathbb{R}^n)*$, el espacio dual de $\mathbb{R}^n$. Estos son objetos \textit{duales} a los campos vectoriales.\\
+
+Recuerde que el espacio dual $V^*$ de un espacio vectorial $V$ es el espacio de todas las funciones escalares lineales, definidas en $V$. Este espacio dual de un espacio vectorial de dimensión $n$ es también un espacio vectorial de dimensión $n$, y sus elementos se denominan \textit{covectores}. Como cualquier mapa lineal, estos covectores pueden ser representados por matrices. Como un covector $\omega^* \in V^*$ asigna a cada covector del espacio de dimensión $n$ un escalar, la matriz que lo representa es un vector. Es útil identificar $(\mathbb{R}^n)^*$ con el conjunto de los vectores fila ($1\times n$) y describir cualquier subespacio de $(\mathbb{R}^n)^*$ como la colección de todas las combinaciones lineales de algún conjunto de vectores fila. Por ejemplo, de las filas de alguna matriz con $n$ columnas.\\
+
+Nótese que si
+\begin{equation*}
+	v = \begin{bmatrix}
+		v_1    \\
+		v_2    \\
+		\vdots \\
+		v_n
+	\end{bmatrix}
+\end{equation*}
+es el vector columna que representa a un elemento de $V$, y si
+\begin{equation*}
+	\omega = \begin{bmatrix}
+		\omega_1 & \omega_2 & \cdots & \omega_n
+	\end{bmatrix}
+\end{equation*}
+es el vector fila que representa a un elemento de $V^*$, entonces el \textit{valor} de $\omega$ evaluado en $v$ está dado por el producto
+\begin{equation*}
+	\omega^* v = \sum_{i=1}^n \omega_i v_i.
+\end{equation*}
+Usualmente esto se representa como un \textit{producto interior} $\langle \omega^*, v \rangle$ en vez del producto $\omega^* v$.\\
+Entonces, un \textit{campo covectorial} se representa usualmente como
+\begin{equation*}
+	\omega(x) = \begin{bmatrix}
+		\omega_1(x) & \omega_2(x) & \cdots & \omega_n(x)
+	\end{bmatrix}
+\end{equation*}
+donde cada $\omega_i(x)$ es una función escalar suave.
+
+\section{Operaciones Diferenciales}
+Existen diversas operaciones diferenciales de los objetos definidos anteriormente. Veremos algunos de ellos.
+\subsection{Matriz Jacobiana de un mapeo vectorial}
+La derivada de un mapa vectorial $F: U \subset \mathbb{R}^n \rightarrow \mathbb{R}^m, m>1$ es en cada punto $x$ la matriz Jacobiana
+\begin{equation*}
+	\dfrac{\partial F}{\partial x} = \begin{bmatrix}
+		\dfrac{\partial F_1}{\partial x_1} & \dfrac{\partial F_1}{\partial x_2} & \cdots & \dfrac{\partial F_1}{\partial x_n} \\
+		\dfrac{\partial F_2}{\partial x_1} & \dfrac{\partial F_2}{\partial x_2} & \cdots & \dfrac{\partial F_2}{\partial x_n} \\
+		\vdots                             & \vdots                             & \ddots & \vdots                             \\
+		\dfrac{\partial F_m}{\partial x_1} & \dfrac{\partial F_m}{\partial x_2} & \cdots & \dfrac{\partial F_m}{\partial x_n}
+	\end{bmatrix}
+\end{equation*}
+El valor de $\dfrac{\partial F}{\partial x}$ en un punto $x = x^0$ se denota a veces como $\left[ \dfrac{\partial F}{\partial x} \right]_{x=x^0}$.\\
+
+\rmk{La derivada es un operador lineal $\quad \Rightarrow \quad$ la matriz jacobiana es un operador lineal.}
+
+\subsection{Diferencial o gradiente de una función escalar}
+Dada una función escalar (suave) $\lambda: U \subset \mathbb{R}^n \rightarrow \mathbb{R}$, su \textit{diferencial} (o gradiente) $d\lambda$ es un campo covectorial
+\begin{equation}
+	d\lambda(x) = \begin{bmatrix}
+		\dfrac{\partial \lambda}{\partial x_1} & \dfrac{\partial \lambda}{\partial x_2} & \cdots & \dfrac{\partial \lambda}{\partial x_n}
+	\end{bmatrix} = \dfrac{\partial \lambda(x)}{\partial x}
+	\label{eq:gradiente}
+\end{equation}
+
+\rmk{
+	Hay entonces, básicamente, dos formas en las que uno puede generar \textit{campos covectoriales}
+	\begin{enumerate}
+		\item Asignándole \textit{``arbitrariamente''} a cada punto un vector fila.
+		\item A partir de un campo escalar, tomo su derivada (gradiente) y eso me genera un campo covectorial.
+	\end{enumerate}
+	De esto surge una pregunta muy interesante, digamos que generamos un campo covectorial \textit{``arbitrariamente''}, ¿es posible encontrar un campo escalar que genere ese campo covectorial como su gradiente?\\
+
+	¿Cuándo un campo vectorial (covectorial) se puede generar a partir de un campo escalar? Cuando es conservativo.
+}
+
+\subsubsection{Diferencial Exacta}
+Todo campo covectorial que tenga la forma \eqref{eq:gradiente}, es decir, que sea la diferencial de una función escalar, se denomina \textit{diferencial exacta}.
+
+\subsection{Derivada de Lie}
+Involucra una función escalar $\lambda(x)$ y un campo vectorial $f(x)$, ambos definidos en $U\subset \mathbb{R}^n$, y genera una nueva función escalar $L_f \lambda : U \subset \mathbb{R}^n \rightarrow \mathbb{R}$, llamada \textit{derivada de Lie} de $\lambda$ a lo largo de $f$ y cuyo valor es
+\begin{equation*}
+	L_f \lambda = \langle d\lambda, f \rangle = \dfrac{\partial \lambda(x)}{\partial x} f(x) = \sum_{i=1}^n \dfrac{\partial \lambda(x)}{\partial x_i} f_i(x).
+\end{equation*}
+
+\subsection{Paréntesis de Lie}
+Involucra dos campos vectoriales $f(x)$ y $g(x)$ y se genera un nuevo campo vectorial $[f,g](x): U \subset \mathbb{R}^n \rightarrow \mathbb{R}^n$, definido como
+\begin{equation*}
+	[f,g](x) = \text{ad}_f g(x) = \dfrac{\partial g(x)}{\partial x} f(x) - \dfrac{\partial f(x)}{\partial x} g(x),
+\end{equation*}
+donde
+\begin{equation*}
+	\dfrac{\partial g(x)}{\partial (x)} = \begin{bmatrix}
+		\dfrac{\partial g_1(x)}{\partial x_1} & \dfrac{\partial g_1(x)}{\partial x_2} & \cdots & \dfrac{\partial g_1(x)}{\partial x_n} \\
+		\dfrac{\partial g_2(x)}{\partial x_1} & \dfrac{\partial g_2(x)}{\partial x_2} & \cdots & \dfrac{\partial g_2(x)}{\partial x_n} \\
+		\vdots                                & \vdots                                & \ddots & \vdots                                \\
+		\dfrac{\partial g_n(x)}{\partial x_1} & \dfrac{\partial g_n(x)}{\partial x_2} & \cdots & \dfrac{\partial g_n(x)}{\partial x_n}
+	\end{bmatrix}
+\end{equation*}
+y $\dfrac{\partial f(x)}{\partial x}$ son las matrices Jacobianas de los mapas $f$ y $g$.
+
+\prop{
+	El producto de Lie de los campos vectoriales tiene las siguientes propiedades:
+	\begin{enumerate}
+		\item Es \textbf{bilineal} sobre $\mathbb{R}$, es decir, si $f_1, f_2, g_1, g_2$ son campos vectoriales y $r_1, r_2$ son números reales, entonces
+		      \begin{equation*}
+			      \begin{aligned}
+				       & [r_1 f_1 + r_2 f_2, g] = r_1 [f_1, g] + r_2 [f_2, g]        \\
+				       & [f_1, r_1 g_1 + r_2 g_2] = r_1 [f_1, g_1] + r_2 [f_1, g_2].
+			      \end{aligned}
+		      \end{equation*}
+		\item Es \textbf{anticomutativo}, es decir, $$[f,g] = -[g,f]$$.
+		\item Satisface la \textbf{identidad de Jacobi}, es decir, $$[f,[g,h]] + [g,[h,f]] + [h,[f,g]] = 0.$$
+	\end{enumerate}
+}
+
+\subsubsection{Interpretación del Paréntesis de Lie}
+El paréntesis de Lie tiene varias interpretaciones que clarifican (y explican) la definición. Daremos una de ellas que tiene que ver con su relación con la solución de las ecuaciones diferenciales (los flujos) correspondientes.\\
+
+Sean dos campos vectoriales (suaves) $f, g: \mathcal{X} \rightarrow \mathbb{R}^n$, donde $\mathcal{X}$. Cada uno de ellos tiene asociado un flujo, correspondiente a la solución de la ecuación diferencial respectiva:
+\begin{equation*}
+	\begin{aligned}
+		\dot{x} & = f(x(t)), \quad x(0) = x_0 \quad \Rightarrow x(t) = \phi_f(t, x_0) = \phi_{f,t}(x_0) = e^{tf}x_0,    \\
+		\dot{x} & = g(x(t)), \quad x(0) = x_0 \quad \Rightarrow x(t) = \phi_g(t, x_0) = \phi_{g,t}(x_0) = e^{tg}x_0 \,.
+	\end{aligned}
+\end{equation*}
+Nótese que hemos usado tres diferentes (y equivalentes) notaciones del flujo. La última de ellas $e^{tf}x_0$ es más conveniente cuando se hacen composiciones de los flujos correspondientes a diferentes campos vectoriales. Por ejemplo,
+\begin{equation*}
+	e^{t_2f}e^{t_1g}x = \phi_f(t_2, \phi_g(t_1, x))
+\end{equation*}
+corresponde a iniciar en el punto $x$ y moverse inicialmente a lo largo del flujo de $g$ durante $t_1$ segundos (unidades de tiempo) y luego meverse a lo largo del flujo de $f$ durante $t_2$ segundos. La notación de la izquierda es más conveniente en este caso. Nótese además que, si el campo vectorial es lineal, es decir, $\dot{x} = Ax$ y $A$ es una matriz, entonces el flujo correspondiente es $e^{tA}x_0$, donde $e^{tA}$ es la matriz exponencial de A. Sin embargo, en el caso general $e^{tf}$ no es más que una convención de notación útil.
+\lem{}{
+	Supóngase que $f, g: \mathcal{X} \rightarrow \mathbb{R}^n$ son dos campos vectoriales (suaves) y que $x_0 \in \mathcal{X}$. Entonces
+	\begin{equation}
+		\begin{aligned}
+			\left[f,g\right](x_0) & = \lim_{t \rightarrow 0} \dfrac{1}{t^2} \left\{ [\phi_{g, -t} \circ \phi_{f, -t} \circ \phi_{g,t} \circ \phi_{f,t}] (x_0) - x_0 \right\} \\
+			                      & = \lim_{t \rightarrow 0} \dfrac{1}{t^2} \left\{ e^{-t(g)}e^{-t(f)}e^{t(g)}e^{t(f)}x_0 - x_0 \right\} \,.
+		\end{aligned}
+		\label{eq:limite_lie}
+	\end{equation}
+}
+Suponga que partimos del punto $x_0$ y seguimos la curva integral (solución, flujo) del campo vectorial $f$ durante un tiempo muy corto $t$, luego, desde ese punto seguimos el flujo de $g$ durante un timpo $t$, luego seguimos el fuljo de $f$ \textit{hacia atrás en el tiempo} durante un tiempo $t$ y finalmente seguimos el flujo de $g$ \textit{hacia atrás en el tiempo} durante un tiempo $t$. ¿Dónde terminamos?\\
+
+En una aproximación de primer orden en $t$ regresaremos al punto $x_0$. Sin embargo, en una aproximación de segundo orden en $t$, llegaremos al punto
+\begin{equation*}
+	x_0 + t^2 \left[f,g\right](x_0).
+\end{equation*}
+Esto es simplemente lo que afirma el lema anterior.\\
+
+Note que el mapa $\phi_{f, -t}$ es el inverso del mapa $\phi_{f,t}$ ($e^{-tf}$ es el inverso de $e^{tf}$), y de forma similar para el mapa $\phi_{g,-t}$ y $\phi_{g,t}$. Por lo tanto, si los mapas $\phi_{f,t}$ y $\phi_{g,t}$ \textit{conmutan} (es decir, $\phi_{g,t} \circ \phi_{f,t} = \phi_{f,t} \circ \phi_{g,t}$), o equivalentemente $e^{tf}e^{tg} = e^{tg}e^{tf}$ para todo tiempo $t$ suficientemente pequeño),entonces el límite en \eqref{eq:limite_lie} es cero.\\
+
+Por lo tanto, se puede pensar en el paréntesis de Lie como una medida de hasta qué punto los mapas de solución $\phi_{f,t}$ y $\phi_{g,t}$ \textit{no conmutan}.\\
+
+El siguiente lema muestra la relación entre la conmutatividad de los flujos (mapas de solución) de los campos vectoriales y su paréntesis de Lie.
+
+\lem{}{
+	Supóngase que $f, g: \mathcal{X} \rightarrow \mathbb{R}^n$ son dos campos vectoriales (suaves). Entonces
+	\begin{equation}
+		\begin{aligned}
+			\left[f,g\right] = 0 \quad & \Leftrightarrow \quad \phi_{f,t} \circ \phi_{g,t} = \phi_{g,\tau} = \phi_{g,\tau} \circ \phi_{f,t}                      \\
+			                           & \Leftrightarrow \quad e^{tf}e^{\tau g} = e^{\tau g}e^{tf} \quad \forall t, \tau \quad \text{ suficientemente pequeños}.
+		\end{aligned}
+		\label{eq:conmutatividad}
+	\end{equation}
+}
+\subsection{Derivada de Lie de un Covector}
+Involucra un campo covectorial $\omega$ y un campo vectorial $f$, y se genera un nuevo campo covectorial denotado $L_f \omega: U \subset \mathbb{R}^n \rightarrow (\mathbb{R}^n)^*$ y definido como
+\begin{equation*}
+	L_f \omega(x) = f^T(x) \left( \dfrac{\partial \omega^T(x)}{\partial x} \right)^T + \omega(x)\dfrac{\partial f(x)}{\partial x},
+\end{equation*}
+y se denomina la derivada de Lie de $\omega$ a lo largo de $f$.\\
+
+Algunas propiedades útiles de estas tres operaciones son las siguientes:
+\begin{enumerate}
+	\item Si $\alpha, \lambda$ son funciones escalares y $f$ es un campo vectorial, entonces
+	      \begin{equation*}
+		      L_{\alpha f}\lambda = \alpha(x) (L_f \lambda).
+	      \end{equation*}
+	\item Si $\alpha, \beta$ son funciones escalares y $f,g$ son campos vectoriales, entonces
+	      \begin{equation*}
+		      \left[ \alpha f, \beta g \right] = \alpha(x) \beta(x) [f,g](x) + \alpha(x)(L_f \beta(x))g(x) - (L_g \alpha(x))f(x) \beta(x).
+	      \end{equation*}
+	\item Si $\lambda$ es una función escalar y $f,g$ son campos vectoriales, entonces
+	      \begin{equation*}
+		      L_{[f,g]}\lambda(x) = L_fL_g\lambda(x) - L_gL_f\lambda(x).
+	      \end{equation*}
+	\item Si $\alpha, \beta$ son funciones escalares, $f$ es un campo vectorial y $\omega$ es un campo covectorial, entonces
+	      \begin{equation*}
+		      \begin{aligned}
+			      L_{\alpha f}\beta\omega(x) & = \alpha(x)\beta(x)L_f \omega(x) + \beta(x)\langle \omega(x), f(x) \rangle d\alpha(x) \\
+			                                 & + (L_f \beta(x))\alpha(x)\omega(x).
+		      \end{aligned}
+	      \end{equation*}
+	\item Si $\lambda$ es una función escalar y $f$ es un campo vectorial, entonces
+	      \begin{equation*}
+		      L_f d\lambda(x) = dL_f \lambda(x).
+	      \end{equation*}
+    \item Si $f,g$ son campos vectoriales y $\omega$ es un campo covectorial, entonces
+    \begin{equation*}
+        L_f \langle \omega, g \rangle (x) = \langle L_f \omega, g(x) \rangle + \langle \omega(x), [f,g](x) \rangle.
+    \end{equation*}
+\end{enumerate}
+
+
+\section{Propiedades de mapeos vectoriales (Transformaciones)}
+Los siguientes resultados son importantes para establecer propiedades de mapeos vectoriales. En realidad todos son equivalentes entre sí.
+\thmr{Teorema de la Función Inversa}{}{
+    Sea $\mathcal{A}$ un conjunto abierto de $\mathbb{R}^n$ y sea $F: \mathcal{A} \rightarrow \mathbb{R}^n$ un mapa $\mathcal{C}^\infty$ (infinitamente diferenciable). Si $\left[ \frac{\partial F}{\partial x} \right]_{x^0}$ es no singular en algún $x^0 \in \mathcal{A}$, entonces existe una vecindad abierta $U$ de $x^0$ contenida en $\mathcal{A}$ tal que $V = F(U)$ es abierto en $\mathbb{R}^n$ y la restricción de $F$ a $U$ es un difeomorfismo de sobre $V$.
+}
+\thmr{Teorema del Rango}{}{
+    Sean $\mathcal{A}\subset \mathbb{R}^n$ y $\mathcal{B}\subset \mathbb{R}^m$ conjuntos abiertos y sea $F: \mathcal{A} \rightarrow \mathcal{B}$ un mapa $\mathcal{C}^\infty$. Supóngase que $\left[ \frac{\partial F}{\partial x} \right]_{x^0}$ tiene rango $k$ para todo $x\in \mathcal{A}$. Para cada punto $x^0\in \mathcal{A}$, existe una vecindad $\mathcal{A}_0$ de $x^0$ en $\mathcal{A}$ y una vecindad $\mathcal{B}_0$ de $F(x^0)$ en $\mathcal{B}$, dos conjuntos abiertos $U\subset \mathbb{R}^n$ y $V\subset \mathbb{R}^m$ y dos difeomorfismos $G: U \rightarrow \mathcal{A}_0$ y $H: V \rightarrow \mathcal{B}_0$ tales que $H\circ F\circ G(U) \subset V$ y tales que para todo $x=(x_1, x_2, \ldots, x_n)\in U$
+    \begin{equation}
+        H\circ F\circ G(x) = (x_1, x_2, \ldots, x_k, 0, 0, \ldots, 0).
+        \label{eq:teorema_rango}
+    \end{equation}
+}
+Es decir, el Teorema del Rango establece que toda función $F$ cuyo jacobiano tenga rango $k$ se puede reescribir en un nuevo sistema de coordenadas tal que $F$ en las nuevas coordenadas se puede escribir como \eqref{eq:teorema_rango}.\\
+\rmk{Cambio de coordenadas en el dominio y en el codominio, ese cambio de coordenadas siempre existe.}
+\rmkb{
+    Denote como $P_k$ al mapeo $P_k : \mathbb{R}^n \rightarrow \mathbb{R}^m$ definido por
+    \begin{equation*}
+        P_k(x) = (x_1, x_2, \ldots, x_k, 0, 0, \ldots, 0). 
+    \end{equation*}
+    Entonces, ya que $G$ y $H$ son invertibles, la expresión anterior se puede reescribir como 
+    \begin{equation*}
+        F = H^{-1} \circ P_k \circ G^{-1}.
+    \end{equation*}
+    que es válida en todos los puntos de $\mathcal{A}_0$.
+}
+
+\thmr{Teorema de la Función Implícita}{}{
+    Sean $\mathcal{A} \subset \mathbb{R}^{m}$ y $\mathcal{B} \subset \mathbb{R}^{n}$ conjuntos abiertos, $F: \mathcal{A} \times \mathcal{B} \rightarrow \mathbb{R}^{n}$ un mapa $\mathcal{C}^{\infty}$. Sea
+    \begin{equation*}
+        (x,y) = (x_1, x_2, \ldots, x_m, y_1, y_2, \ldots, y_n)
+    \end{equation*}
+    un punto de $\mathcal{A} \times \mathcal{B}$. Supóngase que para algún $(x^0, y^0) \in \mathcal{A} \times \mathcal{B}$
+    \begin{equation*}
+        F(x^0, y^0) = 0
+    \end{equation*}
+    y la matriz
+    \begin{equation*}
+            \dfrac{\partial F}{\partial y}
+    \end{equation*}
+    es no singular en $(x^0, y^0)$. Entonces existen vecindades abiertas $\mathcal{A}_0$ de $x^0$ en $\mathcal{A}$ y $\mathcal{B}_0$ de $y^0$ en $\mathcal{B}$ y un único mapeo $G: \mathcal{A}_0 \rightarrow \mathcal{B}_0$, $\mathcal{C}^{\infty}$, tales que
+    \begin{equation*}
+        F(x, G(x)) = 0, \quad \forall x \in \mathcal{A}_0.
+    \end{equation*}
+}
+Como una aplicación del teorema de la función implícita, considere el siguiente corolario
+\cor{
+    Sea $\mathcal{A}$ un conjunto abierto en $\mathbb{R}^n$, sean $M$ una matriz de $k\times n$ cuyos elementos son funciones escalares (reales) $\mathcal{C}^{\infty}$ definidas en $\mathcal{A}$ y sea $b$ un vector columna de $k\times 1$ cuyos elementos son funciones escalares (reales) $\mathcal{C}^{\infty}$ definidas en $\mathcal{A}$. Supóngase que para algún $x^0 \in \mathcal{A}$
+    \begin{equation*}
+        \text{rank}M(x^0) = k
+    \end{equation*}
+    Entonces en existe una vecindad abierta $U$ de $x^0$ en $\mathcal{A}$ y un mapeo suave $G: U \rightarrow \mathbb{R}^{n}$ tales que
+    \begin{equation*}
+        M(x)G(x) = b(x)
+    \end{equation*}
+    para todo $x \in U$. En otras palabras, la ecuación $M(x)G(x) = b(x)$ tiene al menos una solución que es una función suave en $x$ en una vecindad de $x^0$. Si $k=n$, entonces la solución es única.
+}
