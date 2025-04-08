@@ -1,0 +1,158 @@
+\chapter{Control basado en Pasividad}
+\label{chap:control-pasividad}
+
+La \textbf{pasividad} es una propiedad fundamental que poseen ciertos sistemas dinámicos y puede ser aprovechada para el diseño de controladores. Se trata de un enfoque que, a diferencia del método clásico de Lyapunov, se basa explícitamente en el análisis de la relación entre \textit{entradas y salidas}, ya sean físicas o introducidas de manera ficticia.\\
+
+En términos generales, un sistema se considera pasivo si cumple con un \textit{principio de conservación de energía}: la energía que entra al sistema no puede ser menor que la energía que se almacena en él. Para analizar esta propiedad, se asocia al sistema una función escalar \( V(x) \), conocida como \textit{función de almacenamiento}, que representa la energía almacenada. Esta función debe ser al menos continua, diferenciable y al menos semidefinida positiva.\\
+
+La pasividad se evalúa a través de un balance energético. La \textit{potencia suministrada} al sistema se modela como el producto interno entre la entrada \( u(t) \) y la salida \( y(t) \), es decir, \( u^T y \). Si el sistema es pasivo, entonces la derivada temporal de la energía almacenada debe ser menor o igual a la potencia suministrada:
+
+\begin{equation*}
+	\dot{V}(x) \leq u^T y.
+\end{equation*}
+
+Esto implica que el sistema no genera energía internamente: toda la energía almacenada proviene del exterior. Si por el contrario \( \dot{V}(x) > u^T y \), entonces el sistema tendría fuentes internas de energía y no sería pasivo.\\
+
+Otra forma intuitiva de verlo, es que si uno NO aplica ninguna entrada a un sistema pasivo, la energía de este sistema no puede crecer, entonces lo más que le puede ocurrir a la energía de este sistema es que se quede estática o que disminuya. Una implicación inmediata, entonces, es que, si la función de energía cumple las condiciones que pide el teorema de Lyapunov (es positiva definida), entonces el origen es un \gls{pe} estable (no necesariamente asintóticamente estable).
+
+\section{Idea básica}
+Considere el sistema
+\begin{equation}
+	\Sigma : \left\{
+	\begin{aligned}
+		 & \dot{x} = f(x,u), \quad x \in \mathbb{R}^n, u \in \mathbb{R}^p \\
+		 & y = h(x), \quad \quad y \in \mathbb{R}^m
+	\end{aligned}
+	\right.
+	\label{eq:sistema_pasivo}
+\end{equation}
+\begin{equation*}
+	f(0,0) = 0, \quad h(0) = 0
+\end{equation*}
+
+\defn{Sistema Pasivo}{
+	El sistema es \textbf{pasivo} si existe una función de almacenamiento de energía \( V(x) \), continuamente diferenciable y positiva semidefinida, tal que
+	\begin{equation}
+		\dot{V}(x) = \frac{\partial V}{\partial x} f(x,u) \leq u^T y, \quad \forall x \in \mathbb{R}^n, u \in \mathbb{R}^p
+	\end{equation}
+}
+
+\defn{Observabilidad de estado cero}{
+	El sistema es de \textbf{observable de estado cero} si la única trayectoria del sistema con entrada $u = 0$
+	\begin{equation*}
+		\dot{x} = f(x,0)
+	\end{equation*}
+	que puede hacer la salida cero, es decir, que puede permanecer en el conjunto ${h(x) = 0}$ es la solución trivial $x(t) \equiv 0$.\\
+}
+Un resultado básico de estabiliziación asintótica para sistemas pasivos se enuncia en el siguiente teorema.
+\thmr{}{}{
+	Si el sistema \eqref{eq:sistema_pasivo} es
+	\begin{itemize}
+		\item pasivo, con función de almacenamiento positiva definida y radialmente no acotada, y
+		\item de estado cero observable
+	\end{itemize}
+	entonces el origen es $x=0$ puede ser estabilizado global y asintóticamente mediante la ley de control
+	\begin{equation*}
+		u = -\phi(y)
+	\end{equation*}
+	donde $\phi(y)$ es cualquier función localmente Lipschitz, tal que $\phi(0) = 0$ y es pasiva
+	\begin{equation*}
+		y^T \phi(y) \geq 0, \quad \forall y \neq 0
+	\end{equation*}
+}
+\pf{
+	Use la función de almacenamiento $V(x)$ como candidata a \gls{fl} para el sistema en lazo cerrado
+	\begin{equation*}
+		\dot{x} = f(x, -\phi(y)).
+	\end{equation*}
+	Su derivada es
+	\begin{equation*}
+		\dot{V}(x) = \frac{\partial V}{\partial x} f(x, u) \leq -y^T \phi(y) \leq 0
+	\end{equation*}
+	negativa semidefinida. Además $\dot{V}(x) = 0$ sólo si $y = 0$. De la propiedad de estado cero observable se concluye
+	\begin{equation*}
+		y(t) \equiv 0 \implies u(t) = -\phi(y(t)) \equiv 0 \implies x(t) \equiv 0
+	\end{equation*}
+	y por el principio de invarianza de LaSalle, el origen es global y asintóticamente estable.
+}
+
+\rmkb{
+	\begin{itemize}
+		\item Recuerde que, si la función de almacenamiento es positiva definida, el origen del sistema pasivo es estable, y que la interconexión en retroalimentación negativa de sistemas pasivos es pasiva. Por lo tanto, el teorema se puede interpretar de la siguiente manera: \textbf{la no linealidad pasiva $\phi$ inyecta amortiguamiento al sistema, haciendo que las trayectorias converjan al origen.}
+		\item Note que hay una gran libertad de elección en la forma de la función de inyección de amortiguamiento $\phi$: por ejemplo, se pueden satisfacer restricciones de acotamiento de la entrada.
+		\item Ya que el teorema sólo es útil para sistemas pasivos, su utilidad se incrementa si se pueden convertir sistemas no pasivos en pasivos \textbf{(Pasivización)}.
+	\end{itemize}
+}
+
+Hay dos formas básicas de hacer pasivo a un sistema:
+\begin{enumerate}
+	\item Mediante la selección de la salida,
+	\item por retroalimentación de estados, o ambas.
+\end{enumerate}
+
+\section{Pasivización por selección de salida}
+Considere el sistema afín en las entradas
+\begin{equation}
+    \dot{x} = f(x) + G(x)u
+    \label{eq:sistema_af}
+\end{equation}
+y suponga que existe una función $V(x)$ continuamente diferenciable, positiva definida, tal que 
+
+\begin{equation*}
+    \dot{V}(x) = \frac{\partial V}{\partial x} f(x) \leq 0, \quad \forall x
+\end{equation*}
+
+Entonces, el sistema es pasivo con respecto a la salida
+\begin{equation*}
+    y = h(x) \overset{\Delta}{=} \left[ \dfrac{\partial V(x)}{\partial x} G(x) \right]^T,
+\end{equation*}
+ya que
+\begin{equation*}
+    \dot{V}(x) = \frac{\partial V}{\partial x} [ f(x) + G(x)u] \leq \frac{\partial V}{\partial x} G(x)u = y^T u .
+\end{equation*}
+Si adicionalmente es de estado cero observable, entonces puede utilizarse el teorema para estabilizar asintóticamente el origen.
+
+\rmkb{
+    Nótese que no existe una única salida pasiva. Para cada elección de $V(x)$, se obtiene (posiblemente) una salida pasiva difirente.
+    Considere, por ejemplo, como \gls{fl} alternativa
+    \begin{equation*}
+        W(x) = \gamma(V(x))
+    \end{equation*}
+    donde $\gamma$ una función tipo $\mathcal{K}$, continuamente diferenciable ($\mathcal{K}_\infty$ para el caso global). Entonces una salida pasiva con esta \gls{fl} sería
+    
+    \begin{equation*}
+            \tilde{y} = \tilde{h}(x) \overset{\Delta}{=} \left[ \dfrac{\partial W(x)}{\partial x} G(x) \right]^T = \gamma'(V(x)) \left[ \dfrac{\partial V(x)}{\partial x} G(x) \right]^T = \gamma'(V(x)) h(x)
+    \end{equation*}
+}
+\ex{
+    \begin{equation*}
+        \begin{aligned}
+            & \dot{x}_1 = x_2 \\
+            & \dot{x}_2 = -x_1^3 + u
+        \end{aligned}
+    \end{equation*}
+    con $u = 0$
+    \begin{equation*}
+        V(x) = \dfrac{1}{4} x_1^4 + \dfrac{1}{2} x_2^2 \implies \dot{V}(x) = x_1^3 x_2 - x_2 x_1^3 = 0
+    \end{equation*}
+    El sistema es pasivo con respecto a la salida
+    \begin{equation*}
+        y = \dfrac{\partial V(x)}{\partial x} G(x) = \dfrac{\partial V(x)}{\partial x_2} = x_2
+    \end{equation*}
+    Es decir, la salida pasiva es la velocidad del sistema.\\
+    \rmk{¿Es de estado cero observable? Si.\\}
+    con
+    \begin{equation*}
+        u = 0, y(t) \equiv 0 \implies x(t) \equiv 0
+    \end{equation*}
+    Aplicando el teorema, el origen e puede estabilizar global y asintóticamente con cualquier $\phi$ pasiva, por ejemplo
+    \begin{equation*}
+        u = -k x_2, \quad \text{o} \quad u = \left( \dfrac{2k}{\pi} \right) \tan^{-1} x_2, k > 0
+    \end{equation*}
+}
+
+\section{Pasivización por retroalimentación de estados}
+La pasivización por elección de la salida exige que el sistema tenga un punto de equilibrio estable, por lo que muchos sistemas no pueden ser pasivizados por tal método. Para poder considerar sistemas no estables, se requiere utilizar una retroalimentación preliminar.\\
+
+
+
