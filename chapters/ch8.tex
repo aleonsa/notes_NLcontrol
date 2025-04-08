@@ -36,7 +36,7 @@ Considere el sistema
 		\dot{V}(x) = \frac{\partial V}{\partial x} f(x,u) \leq u^T y, \quad \forall x \in \mathbb{R}^n, u \in \mathbb{R}^p
 	\end{equation}
 }
-
+La siguiente definición, conocida como \textit{observabilidad de estado cero}, nos habla de cuándo podemos determinar que el sistema está en estado cero a partir de la entrada y la salida, esto no necesariamente significa que podamos determinar el estado del sistema, sino que podemos determinar si el sistema está en equilibrio o no.\\
 \defn{Observabilidad de estado cero}{
 	El sistema es de \textbf{observable de estado cero} si la única trayectoria del sistema con entrada $u = 0$
 	\begin{equation*}
@@ -93,66 +93,91 @@ Hay dos formas básicas de hacer pasivo a un sistema:
 \section{Pasivización por selección de salida}
 Considere el sistema afín en las entradas
 \begin{equation}
-    \dot{x} = f(x) + G(x)u
-    \label{eq:sistema_af}
+	\dot{x} = f(x) + G(x)u
+	\label{eq:sistema_af}
 \end{equation}
-y suponga que existe una función $V(x)$ continuamente diferenciable, positiva definida, tal que 
+y suponga que existe una función $V(x)$ continuamente diferenciable, positiva definida, tal que
 
 \begin{equation*}
-    \dot{V}(x) = \frac{\partial V}{\partial x} f(x) \leq 0, \quad \forall x
+	\dot{V}(x) = \frac{\partial V}{\partial x} f(x) \leq 0, \quad \forall x
 \end{equation*}
 
 Entonces, el sistema es pasivo con respecto a la salida
 \begin{equation*}
-    y = h(x) \overset{\Delta}{=} \left[ \dfrac{\partial V(x)}{\partial x} G(x) \right]^T,
+	y = h(x) \overset{\Delta}{=} \left[ \dfrac{\partial V(x)}{\partial x} G(x) \right]^T,
 \end{equation*}
 ya que
 \begin{equation*}
-    \dot{V}(x) = \frac{\partial V}{\partial x} [ f(x) + G(x)u] \leq \frac{\partial V}{\partial x} G(x)u = y^T u .
+	\dot{V}(x) = \frac{\partial V}{\partial x} [ f(x) + G(x)u] \leq \frac{\partial V}{\partial x} G(x)u = y^T u .
 \end{equation*}
 Si adicionalmente es de estado cero observable, entonces puede utilizarse el teorema para estabilizar asintóticamente el origen.
 
 \rmkb{
-    Nótese que no existe una única salida pasiva. Para cada elección de $V(x)$, se obtiene (posiblemente) una salida pasiva difirente.
-    Considere, por ejemplo, como \gls{fl} alternativa
-    \begin{equation*}
-        W(x) = \gamma(V(x))
-    \end{equation*}
-    donde $\gamma$ una función tipo $\mathcal{K}$, continuamente diferenciable ($\mathcal{K}_\infty$ para el caso global). Entonces una salida pasiva con esta \gls{fl} sería
-    
-    \begin{equation*}
-            \tilde{y} = \tilde{h}(x) \overset{\Delta}{=} \left[ \dfrac{\partial W(x)}{\partial x} G(x) \right]^T = \gamma'(V(x)) \left[ \dfrac{\partial V(x)}{\partial x} G(x) \right]^T = \gamma'(V(x)) h(x)
-    \end{equation*}
+	Nótese que no existe una única salida pasiva. Para cada elección de $V(x)$, se obtiene (posiblemente) una salida pasiva difirente.
+	Considere, por ejemplo, como \gls{fl} alternativa
+	\begin{equation*}
+		W(x) = \gamma(V(x))
+	\end{equation*}
+	donde $\gamma$ una función tipo $\mathcal{K}$, continuamente diferenciable ($\mathcal{K}_\infty$ para el caso global). Entonces una salida pasiva con esta \gls{fl} sería
+
+	\begin{equation*}
+		\tilde{y} = \tilde{h}(x) \overset{\Delta}{=} \left[ \dfrac{\partial W(x)}{\partial x} G(x) \right]^T = \gamma'(V(x)) \left[ \dfrac{\partial V(x)}{\partial x} G(x) \right]^T = \gamma'(V(x)) h(x)
+	\end{equation*}
 }
 \ex{
-    \begin{equation*}
-        \begin{aligned}
-            & \dot{x}_1 = x_2 \\
-            & \dot{x}_2 = -x_1^3 + u
-        \end{aligned}
-    \end{equation*}
-    con $u = 0$
-    \begin{equation*}
-        V(x) = \dfrac{1}{4} x_1^4 + \dfrac{1}{2} x_2^2 \implies \dot{V}(x) = x_1^3 x_2 - x_2 x_1^3 = 0
-    \end{equation*}
-    El sistema es pasivo con respecto a la salida
-    \begin{equation*}
-        y = \dfrac{\partial V(x)}{\partial x} G(x) = \dfrac{\partial V(x)}{\partial x_2} = x_2
-    \end{equation*}
-    Es decir, la salida pasiva es la velocidad del sistema.\\
-    \rmk{¿Es de estado cero observable? Si.\\}
-    con
-    \begin{equation*}
-        u = 0, y(t) \equiv 0 \implies x(t) \equiv 0
-    \end{equation*}
-    Aplicando el teorema, el origen e puede estabilizar global y asintóticamente con cualquier $\phi$ pasiva, por ejemplo
-    \begin{equation*}
-        u = -k x_2, \quad \text{o} \quad u = \left( \dfrac{2k}{\pi} \right) \tan^{-1} x_2, k > 0
-    \end{equation*}
+	\begin{equation*}
+		\begin{aligned}
+			 & \dot{x}_1 = x_2        \\
+			 & \dot{x}_2 = -x_1^3 + u
+		\end{aligned}
+	\end{equation*}
+	con $u = 0$
+	\begin{equation*}
+		V(x) = \dfrac{1}{4} x_1^4 + \dfrac{1}{2} x_2^2 \implies \dot{V}(x) = x_1^3 x_2 - x_2 x_1^3 = 0
+	\end{equation*}
+	El sistema es pasivo con respecto a la salida
+	\begin{equation*}
+		y = \dfrac{\partial V(x)}{\partial x} G(x) = \dfrac{\partial V(x)}{\partial x_2} = x_2
+	\end{equation*}
+	Es decir, la salida pasiva es la velocidad del sistema.\\
+	\rmk{¿Es de estado cero observable? Si.\\}
+	con
+	\begin{equation*}
+		u = 0, y(t) \equiv 0 \implies x(t) \equiv 0
+	\end{equation*}
+	Aplicando el teorema, el origen e puede estabilizar global y asintóticamente con cualquier $\phi$ pasiva, por ejemplo
+	\begin{equation*}
+		u = -k x_2, \quad \text{o} \quad u = \left( \dfrac{2k}{\pi} \right) \tan^{-1} x_2, k > 0
+	\end{equation*}
 }
 
 \section{Pasivización por retroalimentación de estados}
 La pasivización por elección de la salida exige que el sistema tenga un punto de equilibrio estable, por lo que muchos sistemas no pueden ser pasivizados por tal método. Para poder considerar sistemas no estables, se requiere utilizar una retroalimentación preliminar.\\
 
-
+\defn{}{
+	El sistema
+	\begin{equation*}
+		\Sigma_A : \left\{
+		\begin{aligned}
+			 & \dot{x} = f(x) + G(x)u, \quad x \in \mathbb{R}^n, u \in \mathbb{R}^p \\
+			 & y = h(x), \quad \quad y \in \mathbb{R}^p
+		\end{aligned}
+		\right.
+	\end{equation*}
+    es equivalente por retroalimentación a un sistema pasivo si existe
+    \begin{equation*}
+        u = \alpha(x) + \beta(x) v
+    \end{equation*}
+    tal que
+    \begin{equation*}
+        \begin{aligned}
+            \dot{x} &= f(x) + G(x)\alpha(x) + G(x) \beta(x) v, \quad x \in \mathbb{R}^n, v \in \mathbb{R}^p\\
+            y &= h(x), \quad \quad y \in \mathbb{R}^p
+        \end{aligned}
+    \end{equation*}
+    sea pasivo.
+}
+\rmkb{
+    Esta definición es análoga a la de sistemas linealizables por retroalimentación. Una diferencia importante es que en la de pasivización no se requiere de una transformación de estados, ya que la pasividad, a diferencia de la linealidad, es una propiedad invariante ante transformaciones del estado.\\
+}
 
